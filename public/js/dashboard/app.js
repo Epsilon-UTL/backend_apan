@@ -1,5 +1,4 @@
-import './bootstrap';
-
+alert(12);
 Echo.private('user.' + userId)
     .listen('NotificationEvent', (event) => {
         console.log(event.message); // Puedes mostrar la notificación aquí

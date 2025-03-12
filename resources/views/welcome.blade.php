@@ -1,5 +1,3 @@
-
-
 <!-- resources/views/welcome.blade.php -->
 @if (Auth::check())
     <script>

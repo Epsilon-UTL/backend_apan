@@ -11,16 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cache', function (Blueprint $table) {
-            $table->string('key')->primary();
-            $table->mediumText('value');
-            $table->integer('expiration');
-        });
-
-        Schema::create('cache_locks', function (Blueprint $table) {
-            $table->string('key')->primary();
-            $table->string('owner');
-            $table->integer('expiration');
+        Schema::table('jobs', function (Blueprint $table) {
+            $table->string('queue', 191)->index(); // Reduce length to 191
         });
     }
 
@@ -29,7 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cache');
-        Schema::dropIfExists('cache_locks');
+        Schema::table('jobs', function (Blueprint $table) {
+            $table->dropIndex('jobs_queue_index'); // Drop the index
+        });
     }
 };

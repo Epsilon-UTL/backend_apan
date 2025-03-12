@@ -8,6 +8,7 @@ class CreateUnidadMedidaTable extends Migration
 {
     public function up()
     {
+        if (Schema::hasTable('unidad_medida')) { return; }
         Schema::create('unidad_medida', function (Blueprint $table) {
             $table->id();
             $table->text('unidadMedida');

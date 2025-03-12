@@ -1,5 +1,6 @@
-@extends('layouts.app')
-
+@extends('app')
+@section('title', 'Unidades de Medida')
+@section('activeNav', 'Unidad Medidas')
 @section('content')
 <div class="container">
     <h1>Unidades de Medida</h1>

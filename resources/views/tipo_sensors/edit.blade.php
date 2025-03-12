@@ -1,5 +1,6 @@
-@extends('layouts.app')
-
+@extends('app')
+@section('title', 'Editar Sensor')
+@section('activeNav', 'Tipo Sensores')
 @section('content')
 <div class="container">
     <h1>Editar Tipo de Sensor</h1>

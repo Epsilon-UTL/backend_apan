@@ -11,6 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (Schema::hasTable('sensor')) {
+            return;
+        }
         Schema::create('sensor', function (Blueprint $table) {
             $table->id();
             $table->foreignId('unidadMedida_id')->constrained('unidad_medida');

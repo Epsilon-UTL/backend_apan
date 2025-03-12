@@ -1,5 +1,6 @@
-@extends('layouts.app')
-
+@extends('app')
+@section('title', 'Agregar Sensor')
+@section('activeNav', 'Sensores')
 @section('content')
 <div class="container">
     <h1>Crear Sensor</h1>
