@@ -1,6 +1,5 @@
 <?php
 
-use App\Events\NotificationEvent;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LoginController;
@@ -43,21 +42,4 @@ Route::middleware('auth')->group(function () {
     Route::resource('sensors', SensorController::class);
     Route::resource('tipo-sensors', TipoSensorController::class);
     Route::resource('unidad-medidas', UnidadMedidaController::class);
-});
-
-Broadcast::channel('user.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
-});
-
-Route::post('/send-notification', function () {
-    $users = \App\Models\User::all();
-    foreach ($users as $user) {
-        event(new NotificationEvent($user, 'Nueva notificación para todos los usuarios'));
-    }
-
-    return 'Notificación enviada a todos los usuarios';
-});
-
-Route::get('/postman',function(){
-    return view('xtras.post-man');
 });

@@ -1,26 +1,29 @@
 @extends('auth.auth-head')
 @section('title', 'Iniciar Sesión')
 @section('content')
-    <div class="card card-custom" style="max-width: 800px; width: 100%;">
+    <div class="card card-custom" style="max-width: 800px; width: 100%; background-color: var(--color-background-light);">
         <div class="row g-0">
             <!-- Sección izquierda -->
             <div class="col-md-4 left-section d-flex flex-column align-items-center justify-content-center">
                 <img src="{{ asset('images/loto_logo.png') }}" alt="Logo">
-                <h2 class="mt-3">APAN</h2>
-                <p>APLICACIÓN DE ADMINISTRACIÓN</p>
+                <h2 class="mt-3" style="color: var(--color-background-light);">APAN</h2>
+                <p style="color: var(--color-background-light);">APLICACIÓN DE ADMINISTRACIÓN</p>
             </div>
             <!-- Sección derecha -->
-            <div class="col-md-8 form-section">
-                <h2 class="text-center text-danger">Iniciar sesión</h2>
+            <div class="col-md-8 form-section" style="background-color: var(--color-background-light);">
+                <h2 class="text-center" style="color: var(--color-primary-dark);">Iniciar sesión</h2>
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
 
                     <div class="mb-3">
-                        <label class="form-label">Correo Electrónico</label>
+                        <label class="form-label" style="color: var(--color-primary-medium);">Correo Electrónico</label>
                         <div class="input-group">
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                                name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                name="email" value="{{ old('email') }}" required autocomplete="email" autofocus
+                                style="background-color: var(--color-background-light); color: var(--color-text-dark);">
+                            <span class="input-group-text" style="background-color: var(--color-primary-light);">
+                                <i class="fas fa-envelope"></i>
+                            </span>
                         </div>
                         @error('email')
                             <span class="invalid-feedback" role="alert">
@@ -30,12 +33,12 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Contraseña</label>
+                        <label class="form-label" style="color: var(--color-primary-medium);">Contraseña</label>
                         <div class="input-group">
                             <input id="password" type="password"
                                 class="form-control @error('password') is-invalid @enderror" name="password" required
-                                autocomplete="current-password">
-                            <span class="input-group-text">
+                                autocomplete="current-password" style="background-color: var(--color-background-light); color: var(--color-text-dark);">
+                            <span class="input-group-text" style="background-color: var(--color-primary-light);">
                                 <i class="fas fa-eye" id="togglePassword" style="cursor: pointer;"></i>
                             </span>
                         </div>
@@ -48,22 +51,21 @@
 
                     <div class="mb-3 form-check">
                         <input type="checkbox" class="form-check-input" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                        <label class="form-check-label" for="remember">Recordarme</label>
+                        <label class="form-check-label" for="remember" style="color: var(--color-primary-medium);">Recordarme</label>
                     </div>
 
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
+                        <button type="submit" class="btn btn-primary w-100" style="background-color: var(--color-primary-medium); color: var(--color-text-light);">Iniciar Sesión</button>
                     </div>
 
                     <div class="mt-3 text-center">
                         @if (Route::has('password.request'))
-                            <a href="{{ route('password.request') }}" class="btn btn-link">¿Olvidaste tu contraseña?</a>
+                            <a href="{{ route('password.request') }}" class="btn btn-link" style="color: var(--color-primary-dark);">¿Olvidaste tu contraseña?</a>
                         @endif
                     </div>
 
                     <div class="mt-3 text-center">
-                        <p>¿No tienes una cuenta? <a href="{{ route('register') }}" class="btn btn-link">Regístrate aquí</a>
-                        </p>
+                        <p style="color: var(--color-primary-dark);">¿No tienes una cuenta? <a href="{{ route('register') }}" class="btn btn-link" style="color: var(--color-primary-dark);">Regístrate aquí</a></p>
                     </div>
                 </form>
             </div>

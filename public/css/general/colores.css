@@ -1,0 +1,39 @@
+:root {
+  /* Colores base */
+  --color-primary-dark: #031634; /* Azul profundo */
+  --color-primary-medium: #033649; /* Azul medio */
+  --color-primary-light: #036564; /* Azul turquesa claro */
+
+  /* Colores adicionales relacionados con el agua */
+  --color-accent-dark: #1D3A47; /* Azul oscuro */
+  --color-accent-light: #4B8C87; /* Verde agua claro */
+  --color-background-light: #E5F5F5; /* Fondo claro (agua) */
+  --color-background-dark: #042A2C; /* Fondo oscuro */
+  --color-text-light: #FFFFFF; /* Blanco para textos en dark mode */
+  --color-text-dark: #222222; /* Gris oscuro para textos en light mode */
+
+  /* Colores para el Dashboard */
+  --color-header-light: #1F2A30; /* Encabezado dark */
+  --color-header-dark: #4C5C67; /* Encabezado light */
+}
+
+/* Versión Light */
+[data-theme="light"] {
+  --color-primary-dark: #1D3A47;
+  --color-primary-medium: #4B8C87;
+  --color-primary-light: #A0C9C2;
+  --color-background-light: #E5F5F5;
+  --color-text-light: #333333;
+  --color-header-light: #E9F1F1;
+  --color-text-dark: #444444;
+}
+
+/* Versión Dark */
+[data-theme="dark"] {
+  --color-primary-dark: #031634;
+  --color-primary-medium: #033649;
+  --color-primary-light: #036564;
+  --color-background-dark: #042A2C;
+  --color-text-dark: #E5F5F5;
+  --color-header-dark: #1F2A30;
+}

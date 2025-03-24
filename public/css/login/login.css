@@ -1,0 +1,83 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--color-background-light); /* Fondo claro */
+}
+
+.card-custom {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.left-section {
+    background-color: var(--color-primary-dark); /* Azul profundo */
+    color: var(--color-text-light); /* Blanco */
+    text-align: center;
+    padding: 30px;
+}
+
+.left-section img {
+    width: 150px;
+    height: auto;
+}
+
+.form-section {
+    padding: 30px;
+    background-color: var(--color-background-light); /* Fondo claro */
+}
+
+.btn-primary {
+    background-color: var(--color-primary-medium); /* Azul medio */
+    border: none; /* Borde invisible */
+}
+
+.btn-primary:hover {
+    background-color: var(--color-primary-dark); /* Azul profundo */
+}
+
+.input-group-text {
+    background: transparent;
+    border: none; /* Borde invisible */
+}
+
+input.form-control {
+    border: none; /* Elimina los bordes por defecto */
+    border-bottom: 2px solid var(--color-primary-medium); /* Borde inferior */
+    background-color: var(--color-background-light); /* Fondo claro */
+    color: var(--color-text-dark); /* Texto oscuro */
+    box-shadow: none; /* Elimina cualquier sombra del borde */
+}
+
+input.form-control:focus {
+    border: none; /* Asegura que no haya borde en el enfoque */
+    border-bottom: 2px solid var(--color-primary-dark); /* Borde inferior al enfocar */
+    box-shadow: none; /* Elimina sombra al enfocar */
+}
+
+.text-danger {
+    color: var(--color-primary-dark) !important; /* Azul profundo */
+}
+
+.btn-link {
+    color: var(--color-primary-dark); /* Azul profundo */
+}
+
+.btn-link:hover {
+    color: var(--color-primary-light); /* Azul turquesa claro */
+}
+
+#theme-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    border-radius: 50%;
+    padding: 15px 20px;
+    font-size: 16px;
+}
+
+#theme-toggle:hover {
+    background-color: var(--color-primary-medium); /* Azul medio */
+}
