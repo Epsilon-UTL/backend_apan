@@ -11,4 +11,9 @@ class TipoSensor extends Model
 
     protected $table = 'tipo_sensor';
     protected $fillable = ['nombreSensor'];
+
+    public function sensors()
+    {
+        return $this->hasMany(Sensor::class, 'tipoSensor_id');
+    }
 }

@@ -1,15 +1,51 @@
 :root {
-    --azul-principal: #1976D2;
-    --azul-oscuro: #1565C0;
+    --transition-time: 0.3s;
 }
 
 body, html {
     margin: 0;
     padding: 0;
     height: 100%;
-    background: linear-gradient(45deg, var(--color-primary-dark), var(--color-primary-medium), var(--color-primary-light)); /* Gradiente con variables */
-    background-size: cover;
-    background-position: center;
-    overflow: hidden;
-  }
-  
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary-medium), var(--color-primary-light));
+    background-size: 400% 400%;
+    background-attachment: fixed;
+    animation: gradientBG 15s ease infinite;
+    overflow-x: hidden;
+}
+
+.theme-transition {
+    transition: background-color var(--transition-time) ease, color var(--transition-time) ease;
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Scroll personalizado */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-background-light);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-primary-medium);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary-dark);
+}
+
+

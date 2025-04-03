@@ -5,181 +5,247 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="active-nav" content="@yield('activeNav', '')">
-
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>APAN - @yield('title', 'Página Principal')</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-    <!-- Styles -->
-    <link href="{{ asset('css/dashboard/cssindex.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('css/dashboard/sidebar.css') }}" rel="stylesheet" type="text/css" />
-
-    <link rel="stylesheet" href="{{ asset('css/general/styles.css') }}" type="text/css">
-    <link rel="icon" href="{{ asset('images/loto_logo.png') }}" type="image/png">
-
-    <!-- Agregar estilo para el botón flotante -->
+    <!-- Estilos -->
+    <link href="{{ asset('css/general/colores.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/dashboard/dashboard.css') }}" rel="stylesheet">
     <style>
-        .notification-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: #007bff;
-            color: white;
-            border-radius: 30%;
-            padding: 15px;
-            font-size: 24px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            z-index: 1000;
+        /* Estilos adicionales para la sidebar colapsada */
+        :root {
+            --transition-time: 0.3s;
+            --sidebar-width: 250px;
+            --sidebar-collapsed-width: 70px;
         }
 
-        .notification-count {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background-color: red;
-            color: white;
-            font-size: 12px;
-            padding: 3px 7px;
-            border-radius: 50%;
-            min-width: 20px;
+        .sidebar {
+            width: var(--sidebar-width);
+            transition: width var(--transition-time) ease;
+        }
+
+        .sidebar.collapsed {
+            width: var(--sidebar-collapsed-width) !important;
+        }
+
+        /* Sin cambios de colapso, eliminamos toggle de la sidebar */
+        .sidebar-header,
+        .sidebar-menu,
+        .sidebar-footer {
+            transition: all var(--transition-time) ease;
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            transition: margin-left var(--transition-time) ease;
+        }
+
+        /* Estilos base de la sidebar */
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            text-decoration: none;
+        }
+
+        .logo-image {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .brand-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+        }
+
+        .nav-link i {
+            margin-right: 10px;
+            width: 20px;
             text-align: center;
         }
 
-        .notification-box {
-            position: fixed;
-            top: 20%;
-            right: 40px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            padding: 10px;
-            display: none;
-            z-index: 999;
+        .user-profile {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 15px 20px;
         }
 
-        .notification-box.show {
-            display: block;
+        .user-avatar i {
+            font-size: 2rem;
         }
 
-        .notification-box .notification-item {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .notification-box .notification-item:last-child {
-            border-bottom: none;
+        .user-actions {
+            margin-left: auto;
         }
     </style>
-
+    <link rel="icon" href="{{ asset('images/loto_logo.png') }}" type="image/png">
 </head>
 
-<body class="bg-light">
-    <div id="nav-bar">
-        <input type="checkbox" id="nav-toggle">
-        <div id="nav-header">
-            <a id="nav-title" href="#">
-                <img src="{{ asset('images/loto_logo.png') }}" height="50px" alt="APAN Logo" class="logo-image"> APAN
-            </a>
-            <label for="nav-toggle">
-                <span id="nav-toggle-burger"></span>
-            </label>
-            <hr>
-        </div>
-        <div id="nav-content">
-            <div class="nav-button" tabindex="0" onclick="window.location.href='{{ route('desktop') }}'"
-                data-nav="Escritorio">
-                <i class="fas fa-desktop"></i><span>Escritorio</span>
+<body data-theme="light">
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <a href="{{ route('desktop') }}" class="sidebar-brand">
+                    <img src="{{ asset('images/loto_logo.png') }}" alt="APAN Logo" class="logo-image">
+                    <span class="brand-name">APAN</span>
+                </a>
             </div>
-            <hr>
-            <div class="nav-button" tabindex="0" onclick="window.location.href='{{ route('sensors.index') }}'"
-                data-nav="Sensores">
-                <i class="fas fa-microchip"></i><span>Sensores</span>
+
+            <div class="sidebar-menu">
+                <ul class="nav flex-column">
+                    <li class="nav-item" data-nav="Escritorio">
+                        <a class="nav-link" href="{{ route('desktop') }}">
+                            <i class="fas fa-desktop"></i>
+                            <span class="link-text">Escritorio</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item" data-nav="Usuarios">
+                        <a class="nav-link" href="{{ route('usuarios.index') }}">
+                            <i class="fas fa-users"></i>
+                            <span class="link-text">Usuarios</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item" data-nav="Tipo Sensores">
+                        <a class="nav-link" href="{{ route('tipo-sensors.index') }}">
+                            <i class="fas fa-layer-group"></i>
+                            <span class="link-text">Tipo Sensores</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item" data-nav="Unidad Medidas">
+                        <a class="nav-link" href="{{ route('unidad-medidas.index') }}">
+                            <i class="fas fa-balance-scale"></i>
+                            <span class="link-text">Unidad Medidas</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item" data-nav="Estatus reportes">
+                        <a class="nav-link" href="{{ route('estatus-reportes.index') }}">
+                            <i class="fas fa-clipboard-list"></i>
+                            <span class="link-text">Estatus reportes</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item has-submenu" data-nav="Simulador de Datos">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-database"></i>
+                            <span class="link-text">Simulador de Datos</span>
+                            <i class="fas fa-angle-right dropdown-icon"></i>
+                        </a>
+                        <ul class="submenu">
+                            <li class="nav-item" data-nav="Sensores">
+                                <a class="nav-link" href="{{ route('sensors.index') }}">
+                                    <i class="fas fa-microchip"></i>
+                                    <span class="link-text">Sensores</span>
+                                </a>
+                            </li>
+                            <li class="nav-item" data-nav="Reporte Individual">
+                                <a class="nav-link" href="{{ route('simulador.reportes.create') }}">
+                                    <i class="fas fa-plus-circle"></i>
+                                    <span class="link-text">Reporte Individual</span>
+                                </a>
+                            </li>
+                            <li class="nav-item" data-nav="Reportes Masivos">
+                                <a class="nav-link" href="{{ route('simulador.reportes.create-massive') }}">
+                                    <i class="fas fa-clone"></i>
+                                    <span class="link-text">Reportes Masivos</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
-            <hr>
-            <div class="nav-button" tabindex="0" onclick="window.location.href='{{ route('tipo-sensors.index') }}'"
-                data-nav="Tipo Sensores">
-                <i class="fas fa-layer-group"></i><span>Tipo Sensores</span>
-            </div>
-            <hr>
-            <div class="nav-button" tabindex="0" onclick="window.location.href='{{ route('unidad-medidas.index') }}'"
-                data-nav="Unidad Medidas">
-                <i class="fas fa-balance-scale"></i><span>Unidad Medidas</span>
-            </div>
-            <hr>
-            <div id="nav-content-highlight"></div>
-        </div>
-        <input type="checkbox" id="nav-footer-toggle">
-        <div id="nav-footer">
-            <div id="nav-footer-heading">
-                <div id="nav-footer-avatar">
-                    <i class="fas fa-user"></i>
-                </div>
-                <div id="nav-footer-titlebox">
-                    <span id="nav-footer-title">
-                        {{ strlen(Auth::user()->name) > 10 ? substr(Auth::user()->name, 0, 10) . '...' : Auth::user()->name }}
-                    </span>
-                    <div class="logout-container">
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name">{{ Auth::user()->name }}</span>
+                        <span class="user-email">{{ Auth::user()->email }}</span>
+                    </div>
+                    <div class="user-actions">
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
                             @csrf
+                            <button type="submit" class="btn-logout" title="Cerrar sesión">
+                                <i class="fas fa-sign-out-alt"></i>
+                            </button>
                         </form>
-                        <i class="fas fa-sign-out-alt"></i>
-                        <a id="nav-footer-subtitle" href="#"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                     </div>
                 </div>
-                <label for="nav-footer-toggle">
-                    <i class="fas fa-caret-up"></i>
-                </label>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Navigation -->
+            <nav class="top-nav">
+                <div class="nav-left">
+                    <h4 class="page-title">@yield('title', 'Dashboard')</h4>
+                </div>
+
+            </nav>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                @yield('content')
             </div>
         </div>
     </div>
 
-    <!-- Contenido principal -->
-    <main class="main" id="main-content">
-        @yield('content')
-    </main>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 
-    <div class="notification-btn" onclick="toggleNotifications()">
-            <i class="fas fa-bell"></i>
-    </div>
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap5.min.css">
 
-    <!--     Contenedor de notificaciones -->
-    <div cla    ss="notification-box" id="notificationBox">
-        <div     class="notification-item">
-                <strong>Notificación 1</strong>
-              <  p>Descripción de la notificación.</>
-        </di    v>
-        <div     class="notification-item">
-                <strong>Notificación 2</strong>
-             <p>Descripción de la notificación.</p>
-    
-           </div>
-
-   
-         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-        <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/dashboard/sidebar.js') }}"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap5.min.js"></script>
 
     <script>
-        function toggleNotifications() {
-            var notificationBox = document.getElementById('notificationBox');
-            notificationBox.classList.toggle('show');
-        }
-
+        document.querySelectorAll('.has-submenu > .nav-link').forEach(item => {
+            item.addEventListener('click', function (e) {
+                if (this.parentElement.classList.contains('has-submenu')) {
+                    e.preventDefault();
+                    this.parentElement.classList.toggle('active');
+                }
+            });
+        });
     </script>
+
+    @yield('javascript')
 </body>
 
 </html>

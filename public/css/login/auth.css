@@ -1,0 +1,102 @@
+/* Estilos específicos para registro horizontal */
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 1rem;
+}
+
+.card-custom {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+    max-width: 1000px;
+    width: 100%;
+}
+
+.card-custom:hover {
+    transform: translateY(-3px);
+}
+
+.left-section {
+    background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary-medium));
+    color: var(--color-text-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.logo-container {
+    text-align: center;
+}
+
+.logo-container img {
+    width: 100px;
+    height: auto;
+    margin-bottom: 1.5rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.left-section h2 {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+}
+
+.left-section p {
+    font-weight: 300;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.form-section {
+    padding: 2rem;
+    background-color: var(--color-background-light);
+}
+
+.form-section h2 {
+    font-weight: 600;
+    color: var(--color-primary-dark);
+    position: relative;
+}
+
+.input-group-text {
+    background-color: var(--color-primary-light);
+    color: white;
+    border: none;
+}
+
+.toggle-password {
+    cursor: pointer;
+    background-color: var(--color-primary-light);
+    color: white;
+}
+
+.password-strength .progress {
+    height: 6px;
+    border-radius: 3px;
+}
+
+.password-strength small {
+    font-size: 0.75rem;
+    display: block;
+    margin-top: 0.25rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .left-section {
+        padding: 1.5rem;
+    }
+    
+    .form-section {
+        padding: 1.5rem;
+    }
+    
+    .logo-container img {
+        width: 80px;
+    }
+}

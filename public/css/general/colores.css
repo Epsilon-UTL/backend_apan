@@ -1,39 +1,40 @@
 :root {
-  /* Colores base */
-  --color-primary-dark: #031634; /* Azul profundo */
-  --color-primary-medium: #033649; /* Azul medio */
-  --color-primary-light: #036564; /* Azul turquesa claro */
+  /* Paleta de colores acuáticos mejorada */
+  --color-primary-dark: #0a2e38; /* Azul profundo más rico */
+  --color-primary-medium: #1a5a6a; /* Azul medio más vibrante */
+  --color-primary-light: #2a8a9d; /* Azul turquesa más brillante */
+  --color-accent: #4db8c9; /* Acento turquesa */
 
-  /* Colores adicionales relacionados con el agua */
-  --color-accent-dark: #1D3A47; /* Azul oscuro */
-  --color-accent-light: #4B8C87; /* Verde agua claro */
-  --color-background-light: #E5F5F5; /* Fondo claro (agua) */
-  --color-background-dark: #042A2C; /* Fondo oscuro */
-  --color-text-light: #FFFFFF; /* Blanco para textos en dark mode */
-  --color-text-dark: #222222; /* Gris oscuro para textos en light mode */
-
-  /* Colores para el Dashboard */
-  --color-header-light: #1F2A30; /* Encabezado dark */
-  --color-header-dark: #4C5C67; /* Encabezado light */
+  /* Colores para el tema claro */
+  --color-background-light: #f8fbfc; /* Fondo muy claro con tono azulado */
+  --color-text-light: #ffffff;
+  --color-text-dark: #2d3748; /* Gris azulado oscuro */
+  --color-text-muted: #718096;
+  
+  /* Sombras */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
 }
 
 /* Versión Light */
 [data-theme="light"] {
-  --color-primary-dark: #1D3A47;
-  --color-primary-medium: #4B8C87;
-  --color-primary-light: #A0C9C2;
-  --color-background-light: #E5F5F5;
-  --color-text-light: #333333;
-  --color-header-light: #E9F1F1;
-  --color-text-dark: #444444;
+  --color-primary-dark: #1a5a6a;
+  --color-primary-medium: #2a8a9d;
+  --color-primary-light: #4db8c9;
+  --color-background-light: #f8fbfc;
+  --color-text-dark: #2d3748;
+  --color-text-muted: #718096;
+  --color-text-light: #ffffff;
 }
 
 /* Versión Dark */
 [data-theme="dark"] {
-  --color-primary-dark: #031634;
-  --color-primary-medium: #033649;
-  --color-primary-light: #036564;
-  --color-background-dark: #042A2C;
-  --color-text-dark: #E5F5F5;
-  --color-header-dark: #1F2A30;
+  --color-primary-dark: #0a2e38;
+  --color-primary-medium: #1a5a6a;
+  --color-primary-light: #2a8a9d;
+  --color-background-dark: #0c1e24;
+  --color-text-dark: #e2e8f0;
+  --color-text-muted: #a0aec0;
+  --color-text-light: #ffffff;
 }

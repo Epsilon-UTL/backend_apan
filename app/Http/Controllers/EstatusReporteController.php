@@ -7,49 +7,51 @@ use Illuminate\Http\Request;
 
 class EstatusReporteController extends Controller
 {
-    //
     public function index()
     {
-        $estatus = EstatusReporte::all();
-        return view("estatus_reporte.index", compact("Estatus"));
+        $estatusReportes = EstatusReporte::all();
+        return view('estatus-reportes.index', compact('estatusReportes'));
     }
 
     public function create()
     {
-        return view("estatus_reporte.index");
+        return view('estatus-reportes.create');
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            "estatus"=> "required|string|max:255",
+            'estatus' => 'required|string|max:255|unique:estatus_reportes,estatus'
         ]);
-        EstatusReporte::create($request->all());
-        return redirect()->route("estatus_reporte.index")->with("success","Tipo de estatus creado exitosamente");
-    }
 
-    public function show(EstatusReporte $estatusReporte)
-    {
-        return view("estatus_reporte.show", compact("Estatus"));
+        EstatusReporte::create($request->all());
+
+        return redirect()->route('estatus-reportes.index')
+                         ->with('success', 'Estatus creado exitosamente.');
     }
 
     public function edit(EstatusReporte $estatusReporte)
     {
-        return view("estatus_reporte.edit", compact("Estatus"));
+        return view('estatus-reportes.edit', compact('estatusReporte'));
     }
 
     public function update(Request $request, EstatusReporte $estatusReporte)
     {
         $request->validate([
-            "estatus"=> "required|string|max:255",
-            ]);
+            'estatus' => 'required|string|max:255|unique:estatus_reportes,estatus,'.$estatusReporte->id
+        ]);
+
         $estatusReporte->update($request->all());
-        return redirect()->route("estatus_reporte.index")->with("success","Tipo de estatus actualizado exitosamente");
+
+        return redirect()->route('estatus-reportes.index')
+                         ->with('success', 'Estatus actualizado exitosamente.');
     }
 
     public function destroy(EstatusReporte $estatusReporte)
     {
         $estatusReporte->delete();
-        return redirect()->route("estatus_reporte.index")->with("success","Tipo de estatus eliminado exitosamente");
+
+        return redirect()->route('estatus-reportes.index')
+                         ->with('success', 'Estatus eliminado exitosamente.');
     }
 }

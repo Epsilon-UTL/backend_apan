@@ -1,83 +1,211 @@
-body {
+.login-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color: var(--color-background-light); /* Fondo claro */
+    min-height: 100vh;
+    padding: 2rem;
 }
 
 .card-custom {
-    border-radius: 15px;
+    border-radius: 20px;
     overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+}
+
+.card-custom:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
 }
 
 .left-section {
-    background-color: var(--color-primary-dark); /* Azul profundo */
-    color: var(--color-text-light); /* Blanco */
+    background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary-medium));
+    color: var(--color-text-light);
     text-align: center;
-    padding: 30px;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .left-section img {
-    width: 150px;
+    width: 120px;
     height: auto;
+    margin-bottom: 1.5rem;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+.left-section h2 {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+}
+
+.left-section p {
+    font-weight: 300;
+    font-size: 0.9rem;
+    opacity: 0.9;
 }
 
 .form-section {
-    padding: 30px;
-    background-color: var(--color-background-light); /* Fondo claro */
+    padding: 2.5rem;
+    background-color: var(--color-background-light);
 }
 
-.btn-primary {
-    background-color: var(--color-primary-medium); /* Azul medio */
-    border: none; /* Borde invisible */
+.form-section h2 {
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--color-primary-dark);
+    position: relative;
+    padding-bottom: 0.5rem;
 }
 
-.btn-primary:hover {
-    background-color: var(--color-primary-dark); /* Azul profundo */
+.form-section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: var(--color-primary-medium);
+    border-radius: 3px;
+}
+
+.form-label {
+    font-weight: 500;
+    color: var(--color-primary-medium);
+    margin-bottom: 0.5rem;
+    transition: color var(--transition-time);
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+    position: relative;
 }
 
 .input-group-text {
-    background: transparent;
-    border: none; /* Borde invisible */
+    background: linear-gradient(to right, var(--color-primary-light), var(--color-primary-medium));
+    color: white;
+    border: none;
+    transition: all var(--transition-time);
 }
 
-input.form-control {
-    border: none; /* Elimina los bordes por defecto */
-    border-bottom: 2px solid var(--color-primary-medium); /* Borde inferior */
-    background-color: var(--color-background-light); /* Fondo claro */
-    color: var(--color-text-dark); /* Texto oscuro */
-    box-shadow: none; /* Elimina cualquier sombra del borde */
+.form-control {
+    border: none;
+    border-bottom: 2px solid var(--color-primary-light);
+    background-color: transparent;
+    color: var(--color-text-dark);
+    padding-left: 0;
+    border-radius: 0;
+    transition: all var(--transition-time);
 }
 
-input.form-control:focus {
-    border: none; /* Asegura que no haya borde en el enfoque */
-    border-bottom: 2px solid var(--color-primary-dark); /* Borde inferior al enfocar */
-    box-shadow: none; /* Elimina sombra al enfocar */
+.form-control:focus {
+    box-shadow: none;
+    border-bottom-color: var(--color-primary-dark);
+    background-color: transparent;
 }
 
-.text-danger {
-    color: var(--color-primary-dark) !important; /* Azul profundo */
+.form-control::placeholder {
+    color: rgba(var(--color-text-dark), 0.5);
+    font-weight: 300;
+}
+
+.btn-primary {
+    background: linear-gradient(to right, var(--color-primary-medium), var(--color-primary-dark));
+    border: none;
+    padding: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    transition: all var(--transition-time);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(to right, var(--color-primary-dark), var(--color-primary-medium));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .btn-link {
-    color: var(--color-primary-dark); /* Azul profundo */
+    color: var(--color-primary-medium);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color var(--transition-time);
+    position: relative;
 }
 
 .btn-link:hover {
-    color: var(--color-primary-light); /* Azul turquesa claro */
+    color: var(--color-primary-dark);
 }
 
-#theme-toggle {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1000;
-    border-radius: 50%;
-    padding: 15px 20px;
-    font-size: 16px;
+.btn-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-primary-medium);
+    transition: width var(--transition-time);
 }
 
-#theme-toggle:hover {
-    background-color: var(--color-primary-medium); /* Azul medio */
+.btn-link:hover::after {
+    width: 100%;
+}
+
+/* Efecto de onda en los inputs */
+.wave-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.wave-effect::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.4);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%, -50%);
+    transform-origin: 50% 50%;
+}
+
+.wave-effect:focus::after {
+    animation: wave-effect 0.5s ease-out;
+}
+
+@keyframes wave-effect {
+    0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(20, 20);
+        opacity: 0;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .card-custom {
+        max-width: 100%;
+    }
+    
+    .left-section {
+        padding: 1.5rem;
+    }
+    
+    .form-section {
+        padding: 1.5rem;
+    }
 }

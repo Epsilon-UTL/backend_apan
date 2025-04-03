@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (Schema::hasTable('estatus_reportes')) {
+        if (Schema::hasTable('password_reset_tokens')) {
             return;
         }
-        Schema::create('estatus_reportes', function (Blueprint $table) {
-            $table->id();
-            $table->text('estatus');
-            $table->timestamps();
+        Schema::create('password_reset_tokens', function (Blueprint $table) {
+            $table->string('email')->primary();
+            $table->string('token');
+            $table->timestamp('created_at')->nullable();
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('estatus_reportes');
+        Schema::dropIfExists('password_reset_tokens');
     }
 };
