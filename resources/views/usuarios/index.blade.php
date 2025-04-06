@@ -18,6 +18,8 @@
                             <th>ID</th>
                             <th>Nombre</th>
                             <th>Correo Electrónico</th>
+                            <th>Rol</th>
+                            <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -27,6 +29,16 @@
                             <td>{{ $usuario->id }}</td>
                             <td>{{ $usuario->name }}</td>
                             <td>{{ $usuario->email }}</td>
+                            <td>
+                                <span class="badge {{ $usuario->role === 'administrador' ? 'bg-primary' : 'bg-info' }}">
+                                    {{ $usuario->role === 'administrador' ? 'Administrador' : 'Usuario' }}
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge {{ $usuario->is_active ? 'bg-success' : 'bg-danger' }}">
+                                    {{ $usuario->is_active ? 'Activo' : 'Inactivo' }}
+                                </span>
+                            </td>
                             <td>
                                 <div class="d-flex gap-2">
                                     <a href="{{ route('usuarios.edit', $usuario->id) }}" 

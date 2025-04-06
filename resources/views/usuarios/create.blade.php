@@ -31,6 +31,31 @@
                         <div class="text-danger small mt-1">{{ $message }}</div>
                     @enderror
                 </div>
+                <div class="mb-3">
+                    <label for="password_confirmation" class="form-label">Confirmar Contraseña</label>
+                    <input type="password" name="password_confirmation" class="form-control" required placeholder="Confirmar Contraseña">
+                </div>
+                <div class="mb-3">
+                    <label for="role" class="form-label">Rol</label>
+                    <select name="role" class="form-select" required>
+                        <option value="">Seleccione un rol</option>
+                        @foreach($roles as $value => $label)
+                            <option value="{{ $value }}">{{ $label }}</option>
+                        @endforeach
+                    </select>
+                    @error('role')
+                        <div class="text-danger small mt-1">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input type="checkbox" name="is_active" class="form-check-input" id="is_active" checked>
+                        <label class="form-check-label" for="is_active">Usuario Activo</label>
+                    </div>
+                    @error('is_active')
+                        <div class="text-danger small mt-1">{{ $message }}</div>
+                    @enderror
+                </div>
                 <div class="d-flex justify-content-end gap-2">
                     <a href="{{ route('usuarios.index') }}" class="btn btn-secondary">
                         <i class="fas fa-times"></i> Cancelar

@@ -16,21 +16,32 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('usuarios.create');
+        $roles = [
+            User::ROLE_ADMIN => 'Administrador',
+            User::ROLE_USER => 'Usuario'
+        ];
+        return view('usuarios.create', compact('roles'));
     }
 
     public function store(Request $request)
     {
+        dd($request->all());
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8|confirmed',
+            'role' => 'required|in:' . User::ROLE_ADMIN . ',' . User::ROLE_USER,
+            'is_active' => 'boolean'
         ]);
+        
+        $isActive = ($request->is_active === 'on' || $request->is_active == 1) ? 1 : 0;
 
         $usuario = new User();
         $usuario->name = $request->name;
         $usuario->email = $request->email;
         $usuario->password = Hash::make($request->password);
+        $usuario->role = $request->role;
+        $usuario->is_active = $isActive;
         $usuario->save();
 
         return redirect()->route('usuarios.index')->with('success', 'Usuario creado exitosamente');
@@ -38,7 +49,11 @@ class UserController extends Controller
 
     public function edit(User $usuario)
     {
-        return view('usuarios.edit', compact('usuario'));
+        $roles = [
+            User::ROLE_ADMIN => 'Administrador',
+            User::ROLE_USER => 'Usuario'
+        ];
+        return view('usuarios.edit', compact('usuario', 'roles'));
     }
 
     public function update(Request $request, User $usuario)
@@ -47,13 +62,19 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $usuario->id,
             'password' => 'nullable|min:8|confirmed',
+            'role' => 'required|in:' . User::ROLE_ADMIN . ',' . User::ROLE_USER,
+            'is_active' => 'required'
         ]);
+
+        $isActive = ($request->is_active === 'on' || $request->is_active == 1) ? 1 : 0;
 
         $usuario->name = $request->name;
         $usuario->email = $request->email;
         if ($request->password) {
             $usuario->password = Hash::make($request->password);
         }
+        $usuario->role = $request->role;
+        $usuario->is_active = $isActive;
         $usuario->save();
 
         return redirect()->route('usuarios.index')->with('success', 'Usuario actualizado exitosamente');
