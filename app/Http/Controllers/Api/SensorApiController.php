@@ -39,7 +39,7 @@ class SensorApiController extends Controller
             }
         }
 
-        $fechaInicio = now()->subHour();
+        $fechaInicio = now()->subSeconds(30);
         $sensores = Sensor::where('usuario_id', $user->id)
                 ->where('created_at', '>=', $fechaInicio)
                 ->with('tipoSensor')
@@ -48,7 +48,7 @@ class SensorApiController extends Controller
                 
         $valoresMasRecientes = $sensores->groupBy('tipoSensor_id')->map(function ($group) {
             return $group->first();
-        });
+        })->sortByDesc('created_at');
         
         event(new SensorDataUpdated([
             'recientes' => $valoresMasRecientes,
@@ -73,7 +73,8 @@ class SensorApiController extends Controller
     
         switch ($rango) {
             case 'ultima_hora':
-                $fechaInicio = now()->subHour();
+                //$fechaInicio = now()->subHour();
+                $fechaInicio = now()->subSeconds(30);
                 break;
             case 'ultimo_dia':
                 $fechaInicio = now()->subDay();
@@ -106,7 +107,7 @@ class SensorApiController extends Controller
     
         $valoresMasRecientes = $sensores->groupBy('tipoSensor_id')->map(function ($group) {
             return $group->first();
-        });
+        })->sortByDesc('created_at');
         
 
         return response()->json([

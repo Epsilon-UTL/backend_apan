@@ -26,9 +26,7 @@ class SensorDataUpdated implements ShouldBroadcast
 
     public function broadcastWith()
     {
-        return [
-            'sensores' => $this->sensores,
-        ];
+        return $this->sensores;
     }
 
     // Corrección importante: este método debe devolver solo el nombre del evento
