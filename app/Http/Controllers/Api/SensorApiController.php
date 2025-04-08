@@ -72,6 +72,13 @@ class SensorApiController extends Controller
         }
     
         switch ($rango) {
+            case 'def':
+                //$fechaInicio = now()->subHour();
+                $fechaInicio = now()->subSeconds(30);
+                break;
+            case 'actual':
+                $fechaInicio = now()->subMinutes(30);
+                break;
             case 'ultima_hora':
                 //$fechaInicio = now()->subHour();
                 $fechaInicio = now()->subSeconds(30);
