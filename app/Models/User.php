@@ -63,4 +63,14 @@ class User extends Authenticatable
     {
         return $this->role === $role;
     }
+
+    public function lecturasSensor()
+    {
+        return $this->hasMany(Sensor::class, 'usuario_id');
+    }
+
+    public function reportes()
+    {
+        return $this->hasMany(Reporte::class, 'usuario_id');
+    }
 }

@@ -11,6 +11,7 @@ return new class extends Migration
         Schema::create('tipo_sensor', function (Blueprint $table) {
             $table->id();
             $table->string('nombreSensor');
+            $table->foreignId('unidadMedida_id')->constrained('unidad_medida');
             $table->timestamps();
         });
     }

@@ -10,15 +10,20 @@ class Sensor extends Model
     use HasFactory;
 
     protected $table = 'sensor';
-    protected $fillable = ['unidadMedida_id', 'valor', 'tipoSensor_id', 'fecha'];
-
-    public function unidadMedida()
-    {
-        return $this->belongsTo(UnidadMedida::class, 'unidadMedida_id');
-    }
+    protected $fillable = [ 'valor', 'tipoSensor_id', 'usuario_id'];
 
     public function tipoSensor()
     {
         return $this->belongsTo(TipoSensor::class, 'tipoSensor_id');
+    }
+
+    public function usuario()
+    {
+        return $this->belongsTo(User::class, 'usuario_id');
+    }
+
+    public function reportes()
+    {
+        return $this->hasMany(Reporte::class);
     }
 }

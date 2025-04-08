@@ -10,10 +10,9 @@ return new class extends Migration
     {
         Schema::create('sensor', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('unidadMedida_id')->constrained('unidad_medida')->onDelete('cascade');
             $table->foreignId('tipoSensor_id')->constrained('tipo_sensor')->onDelete('cascade');
+            $table->foreignId('usuario_id')->constrained('users')->onDelete('cascade');
             $table->decimal('valor', 10, 2);
-            $table->timestamp('fecha');
             $table->timestamps();
         });
     }

@@ -13,18 +13,18 @@ class Reporte extends Model
     protected $table = 'reportes';
     protected $fillable = ['sensor_id','usuario_id','descripcion','estatus_id','fecha'];
 
-    public function Sensor()
+    public function sensor()
     {
-        return $this->belongsTo( Sensor::class);
+        return $this->belongsTo(Sensor::class);
     }
 
-    public function Users()
+    public function usuario()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'usuario_id');
     }
 
-    public function EstatusReporte()
+    public function estatusReporte()
     {
-        return $this->belongsTo(EstatusReporte::class);
+        return $this->belongsTo(EstatusReporte::class, 'estatus_id');
     }
 }

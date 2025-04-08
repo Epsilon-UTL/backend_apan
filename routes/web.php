@@ -43,3 +43,15 @@ Route::middleware('auth')->group(function () {
         Route::post('/masivo', [ReporteSimuladorController::class, 'storeMassive'])->name('simulador.reportes.storeMassive');
     });
 });
+
+
+Route::get('/pruebaSockets', function(){
+    return view('/sockets');
+});
+
+use App\Events\SensorDataUpdated;
+
+Route::get('/probar-broadcast', function () {
+    event(new SensorDataUpdated(['prueba' => 'ok']));
+    return 'Evento enviado';
+});

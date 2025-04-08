@@ -14,7 +14,8 @@ return new class extends Migration
             $table->foreignId('usuario_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('estatus_id')->constrained('estatus_reportes')->onDelete('cascade');
             $table->text('descripcion');
-            $table->timestamp('fecha');
+            $table->timestamp('fecha_inicio');
+            $table->timestamp('fecha_fin')->nullable();
             $table->timestamps();
         });
     }

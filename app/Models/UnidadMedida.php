@@ -12,4 +12,8 @@ class UnidadMedida extends Model
     protected $table = 'unidad_medida';
     protected $fillable = ['unidadMedida'];
 
+    public function sensors()
+    {
+        return $this->hasMany(Sensor::class, 'unidadMedida_id');
+    }
 }

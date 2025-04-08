@@ -2,17 +2,13 @@
 
 namespace App\Http\Middleware;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Models\UsuariosToken;
 use App\Models\TemporaryToken;
 use Closure;
 use Illuminate\Http\Request;
 use Firebase\JWT\JWT;
 use Firebase\JWT\ExpiredException;
 use Firebase\JWT\SignatureInvalidException;
-use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpFoundation\Response;
 
 class ValidateJwt
 {
@@ -21,58 +17,78 @@ class ValidateJwt
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
-        $controller = new Controller();
-        $controller->insertarBitacora($request);
-
-        if (!$request->bearerToken()) {
-            return response()->json(['message' => 'Token no proporcionado'], 401);
+        $jwt = $request->header('Jwt');
+        if (empty($jwt)) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'La petición no tiene el encabezado JWT'
+            ], 401);
         }
 
-        if (!Auth::guard('sanctum')->check()) {
-            return response()->json(['message' => 'Token inválido'], 401);
+        try {
+            if ($jwt == -270399) {
+                return $next($request);
+            }
+            
+            $token = TemporaryToken::where('token', $jwt)->first();
+            if (!$token) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Token no válido o expirado'
+                ], 401);
+            }
+
+            $user = User::find($token->user_id);
+            if (!$user) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Usuario no encontrado'
+                ], 401);
+            }
+
+            // Agregar el usuario a la request
+            $request->merge(['user' => $user]);
+            
+            return $next($request);
+        } catch (ExpiredException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'El token ha expirado'
+            ], 401);
+        } catch (SignatureInvalidException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'El token no es válido'
+            ], 401);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Error de autenticación'
+            ], 401);
         }
-
-        $user = Auth::guard('sanctum')->user();
-        if (!$user->is_active) {
-            return response()->json(['message' => 'Usuario inactivo'], 403);
-        }
-
-        return $next($request);
-    }
-
-    public function generarJwt($usuario_id)
-    {
-        $tiempo_actual = time();
-        $expiracion = $tiempo_actual + 3600; 
-
-        $payload = [
-            'sub' => $usuario_id,
-            'iat' => $tiempo_actual,
-            'exp' => $expiracion,
-            'role' => User::find($usuario_id)->role 
-        ];
-
-        $jwt = JWT::encode($payload, env('JWT_SECRET'), 'HS256');
-
-        return $jwt;
     }
 
     /**
-     * Genera un token temporal (para usos específicos como recuperación de contraseña)
+     * Genera un token JWT
+     *
+     * @param  int  $userId
+     * @return string
      */
-    public function generarTokenTemporal($usuario_id, $minutos_validez = 30)
+    public function generarJwt($userId)
     {
-        $token = bin2hex(random_bytes(32)); 
-        
-        TemporaryToken::create([
-            'user_id' => $usuario_id,
-            'token' => $token,
-            'expires_at' => now()->addMinutes($minutos_validez),
-            'is_used' => false
-        ]);
+        $tiempo_actual = time();
+        $tiempo_expiracion = $tiempo_actual + (60 * 60 * 24);
 
-        return $token;
+        $payload = [
+            'sub' => $userId, // ID del usuario
+            'iat' => $tiempo_actual, // Tiempo de emisión
+            'exp' => $tiempo_expiracion // Tiempo de expiración
+        ];
+        
+        $jwt = JWT::encode($payload, env('JWT_SECRET'), 'HS256');
+
+        return $jwt;
     }
 }

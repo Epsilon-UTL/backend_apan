@@ -91,7 +91,7 @@
                                 <tr style="color: var(--color-text-dark);">
                                     <td>{{ $lectura->tipoSensor->nombreSensor }}</td>
                                     <td>{{ $lectura->valor }}</td>
-                                    <td>{{ $lectura->unidadMedida->unidadMedida }}</td>
+                                    <td>{{ $lectura->tipoSensor->unidadMedida[0]->unidadMedida }}</td>
                                     <td>{{ $lectura->created_at->format('d/m/Y H:i') }}</td>
                                 </tr>
                                 @endforeach

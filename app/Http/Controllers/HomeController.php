@@ -17,8 +17,8 @@ class HomeController extends Controller
         $totalSensores = Sensor::count();
         $tiposSensores = TipoSensor::withCount('sensors')->get();
         
-        $ultimasLecturas = Sensor::with(['unidadMedida', 'tipoSensor'])
-                                ->orderBy('fecha', 'desc')
+        $ultimasLecturas = Sensor::with(['tipoSensor.unidadMedida'])
+                                ->orderBy('created_at', 'desc')
                                 ->take(5)
                                 ->get();
         
@@ -26,8 +26,8 @@ class HomeController extends Controller
         $reportesAbiertos = Reporte::where('estatus_id', 1)->count();
         $reportesResueltos = Reporte::where('estatus_id', 2)->count();
         
-        $lecturasPorDia = Sensor::selectRaw('DATE(fecha) as date, COUNT(*) as count')
-                               ->where('fecha', '>=', Carbon::now()->subDays(7))
+        $lecturasPorDia = Sensor::selectRaw('DATE(created_at) as date, COUNT(*) as count')
+                               ->where('created_at', '>=', Carbon::now()->subDays(7))
                                ->groupBy('date')
                                ->orderBy('date')
                                ->get();
