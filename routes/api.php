@@ -7,6 +7,8 @@ use App\Http\Controllers\AlertaController;
 use App\Http\Middleware\ValidateJwt;
 use Illuminate\Support\Facades\Route;
 
+Route::post('/cambiar-contrasena', [CambioContrasenaController::class, 'cambiarContrasena']);
+
 // Rutas públicas
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
